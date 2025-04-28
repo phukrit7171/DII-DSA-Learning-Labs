@@ -1,4 +1,4 @@
-package class2.LlinkedList;
+package class2.LinkedList;
 
 public class EnhancedLinkedList extends BasicLinkedList {
     public int getLast() {
