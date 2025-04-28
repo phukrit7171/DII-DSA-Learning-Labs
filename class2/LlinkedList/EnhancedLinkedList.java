@@ -1,6 +1,6 @@
 package class2.LlinkedList;
 
-public class EnchancedLinkedList extends BasicLinkedList {
+public class EnhancedLinkedList extends BasicLinkedList {
     public int getLast() {
         if (head == null) {
             System.out.println("List is empty, no last element.");

@@ -11,7 +11,7 @@ public class App {
         basicList.printAll();
         System.out.println("Size: " + basicList.getSize());
 
-        EnchancedLinkedList enhancedList = new EnchancedLinkedList();
+        EnhancedLinkedList enhancedList = new EnhancedLinkedList();
         enhancedList.addFirst(5);
         enhancedList.addFirst(15);
         enhancedList.addFirst(25);
