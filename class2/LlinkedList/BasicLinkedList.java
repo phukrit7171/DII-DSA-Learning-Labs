@@ -1,36 +1,36 @@
 package class2.LlinkedList;
 
 public class BasicLinkedList {
-    private MyNode head;
+    protected MyNode head;
 
     public BasicLinkedList() {
+        this.head = null;
     }
 
     public void addFirst(int x){
         MyNode newNode = new MyNode(x);
-        if (head == null) {
-            head = newNode;
-        } else {
-            newNode.setNextNode(head);
-            head = newNode;
-        }
+        newNode.setNextNode(head);
+        head = newNode;
     }
 
-    public void removeFirst() {
+    public void removeFirst(){
         if (head != null) {
             head = head.getNextNode();
+        } else {
+            System.out.println("List is empty, nothing to remove.");
         }
     }
 
-    public int getFirst() {
+    public int getFirst(){
         if (head != null) {
             return head.getElement();
         } else {
-            throw new IllegalStateException("List is empty");
+            System.out.println("List is empty, no first element.");
+            return -1; // or throw an exception
         }
     }
 
-    public void printAll() {
+    public void printAll(){
         MyNode current = head;
         while (current != null) {
             System.out.print(current.getElement() + " ");
@@ -39,7 +39,7 @@ public class BasicLinkedList {
         System.out.println();
     }
 
-    public int getSize() {
+    public int getSize(){
         int size = 0;
         MyNode current = head;
         while (current != null) {
