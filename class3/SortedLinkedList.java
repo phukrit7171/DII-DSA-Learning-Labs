@@ -15,6 +15,9 @@ public class SortedLinkedList {
         Node newNode = new Node(element);
         if (head == null || head.getElement() >= element) {
             newNode.setNextNode(head);
+            if (head != null) {
+                head.setPrevNode(newNode);
+            }
             head = newNode;
             if (tail == null) { // list was empty
                 tail = newNode;
@@ -184,17 +187,44 @@ public class SortedLinkedList {
             System.out.println("List is empty, nothing to print.");
             return;
         }
-        // For reversal, update tail as well (original head becomes new tail)
+
+        Node originalHead = head;
+        Node originalTail = tail;
+
+        // Reverse the list
         Node current = head;
-        tail = head;
         Node prev = null;
+        Node next = null;
+        tail = head; // Original head becomes the new tail
+
         while (current != null) {
-            Node next = current.getNextNode();
+            next = current.getNextNode();
             current.setNextNode(prev);
+            current.setPrevNode(next);
             prev = current;
             current = next;
         }
         head = prev;
+
+        // Print the reversed list
+        System.out.println("Reversed List:");
         printAll();
+
+        // Reverse the list again to restore the original order
+        current = head;
+        prev = null;
+        next = null;
+        while (current != null) {
+            next = current.getNextNode();
+            current.setNextNode(prev);
+            current.setPrevNode(next);
+            prev = current;
+            current = next;
+        }
+        head = prev;
+
+        // Restore the original head and tail
+        head = originalHead;
+        tail = originalTail;
     }
 }

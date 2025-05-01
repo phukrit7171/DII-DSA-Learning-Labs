@@ -38,10 +38,6 @@ public class Node {
                 '}';
     }
     public void printNode() {
-        System.out.println("Node{" +
-                "element=" + element +
-                ", nextNode=" + nextNode +
-                ", prevNode=" + prevNode +
-                '}');
+        System.out.println(this.toString());
     }
 }
