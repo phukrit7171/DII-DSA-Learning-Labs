@@ -1,6 +1,5 @@
 package class3;
 
-import java.util.NoSuchElementException; // Import for potential exception throwing
 
 /**
  * Implements a Sorted Doubly Linked List for integer elements using a separate Node class.
