@@ -26,5 +26,8 @@ public class App {
         System.out.println("Node 1: " + node1); // Output: Node 1: Node{data=1, next=null}
         System.out.println("Node 2: " + node2); // Output: Node 2: Node{data=2, next=Node{data=1, next=null}}
         System.out.println("Node 3: " + node3); // Output: Node 3: Node{data=3, next=Node{data=2, next=Node{data=1, next=null}}}
+        System.out.println("Node 1 toString: " + node1.toString()); // Output: Node 1 toString: Node{data=1, next=null}
+        System.out.println("Node 2 toString: " + node2.toString()); // Output: Node 2 toString: Node{data=2, next=Node{data=1, next=null}}
+        System.out.println("Node 3 toString: " + node3.toString()); // Output: Node 3 toString: Node{data=3, next=Node{data=2, next=Node{data=1, next=null}}}
     }
 }
