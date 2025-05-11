@@ -2,7 +2,7 @@
 
 ## Class Descriptions
 
-### Class 4 Utilities:
+### Class 4 Utilities
 
 - **DecimalToBinary**: Converts decimal numbers to binary representation (supports both integer and fractional numbers)
 - **ExpressionConverterEvaluator**: Converts infix expressions to postfix notation and evaluates mathematical expressions
