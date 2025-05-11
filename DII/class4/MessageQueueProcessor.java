@@ -22,18 +22,20 @@ public class MessageQueueProcessor {
                     charQueue.poll(); // Dequeue if asterisk and queue is not empty
                 }
             }
-            // Other characters (like spaces in "LASTIN FIRST OUT") are ignored as per the problem's focus on letters and asterisks.
-            // If spaces or other symbols should be enqueued, the condition `Character.isLetter(c)` would need adjustment.
+            // Other characters (like spaces in "LASTIN FIRST OUT") are ignored as per the
+            // problem's focus on letters and asterisks.
+            // If spaces or other symbols should be enqueued, the condition
+            // `Character.isLetter(c)` would need adjustment.
             // Based on "EASYQUE", it seems only letters are enqueued.
         }
-        
+
         if (charQueue.isEmpty()) {
             System.out.println("Nothing");
         } else {
             // To display the remaining letters as a single string:
             String remaining = charQueue.stream()
-                                        .map(String::valueOf)
-                                        .collect(Collectors.joining());
+                    .map(String::valueOf)
+                    .collect(Collectors.joining());
             System.out.println(remaining);
         }
 
