@@ -16,20 +16,19 @@ public class ExpressionConverterEvaluator {
     }
     
     // Helper function to check if a token is numeric (for postfix evaluation)
-    // For prefix to postfix conversion, we usually assume if it's not an operator, it's an operand.
     private static boolean isNumeric(String str) {
         if (str == null) {
             return false;
         }
         try {
-            Integer.parseInt(str);
+            Integer.parseInt(str); // Or Double.parseDouble(str) if supporting floating point
             return true;
         } catch (NumberFormatException e) {
             return false;
         }
     }
 
-    // Method to convert Prefix to Postfix expression
+    // OPTIMIZED Method to convert Prefix to Postfix expression
     public static String prefixToPostfix(String prefixExpression) {
         if (prefixExpression == null || prefixExpression.trim().isEmpty()) {
             throw new IllegalArgumentException("Prefix expression cannot be null or empty.");
@@ -39,31 +38,34 @@ public class ExpressionConverterEvaluator {
         List<String> tokenList = Arrays.asList(tokens);
         Collections.reverse(tokenList); // Process from right to left
 
-        Stack<String> stack = new Stack<>();
+        // Use Stack<StringBuilder> for optimization
+        Stack<StringBuilder> stack = new Stack<>();
 
         for (String token : tokenList) {
             if (isOperator(token)) {
                 if (stack.size() < 2) {
                     throw new IllegalArgumentException("Invalid prefix expression: Not enough operands for operator " + token);
                 }
-                String operand1 = stack.pop();
-                String operand2 = stack.pop();
-                // For prefix to postfix, the order is op1 op2 operator
-                String newExpression = operand1 + " " + operand2 + " " + token;
+                StringBuilder operand1 = stack.pop();
+                StringBuilder operand2 = stack.pop();
+                
+                // Efficiently build the new expression part
+                StringBuilder newExpression = new StringBuilder();
+                newExpression.append(operand1).append(" ").append(operand2).append(" ").append(token);
                 stack.push(newExpression);
             } else {
-                // Assuming valid numbers/operands as per typical prefix/postfix notation
-                stack.push(token);
+                // Push operand as a StringBuilder
+                stack.push(new StringBuilder(token));
             }
         }
 
         if (stack.size() != 1) {
             throw new IllegalArgumentException("Invalid prefix expression format.");
         }
-        return stack.pop();
+        return stack.pop().toString();
     }
 
-    // Method to evaluate Postfix expression (reused and adapted from previous response)
+    // Method to evaluate Postfix expression (already efficient)
     public static int evaluatePostfix(String postfixExpression) {
         if (postfixExpression == null || postfixExpression.trim().isEmpty()) {
             throw new IllegalArgumentException("Postfix expression cannot be null or empty for evaluation.");
@@ -106,12 +108,11 @@ public class ExpressionConverterEvaluator {
                         result = operand1 % operand2;
                         break;
                     default:
-                        // This case should ideally not be hit if isOperator is comprehensive
                         throw new IllegalArgumentException("Unknown operator during postfix evaluation: " + token);
                 }
                 operandStack.push(result);
             } else {
-                 if (!token.trim().isEmpty()) {
+                 if (!token.trim().isEmpty()) { // Ignore empty tokens if any from multiple spaces
                      throw new IllegalArgumentException("Invalid token during postfix evaluation: " + token);
                  }
             }
@@ -128,6 +129,8 @@ public class ExpressionConverterEvaluator {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the prefix expression (tokens separated by spaces):");
+        // Example 1: + + 4 2 * 3 - 15 1  (Result: 48)
+        // Example 2: / - % + 1 2 3 6 + 2 3 (Result: -1)
         String prefixExpr = scanner.nextLine();
 
         System.out.println("\nInput Prefix Expression: " + prefixExpr);
@@ -141,9 +144,9 @@ public class ExpressionConverterEvaluator {
 
         } catch (IllegalArgumentException | ArithmeticException e) {
             System.err.println("Error: " + e.getMessage());
-        } catch (Exception e) {
+        } catch (Exception e) { // Catch any other unexpected exceptions
             System.err.println("An unexpected error occurred: " + e.getMessage());
-            // e.printStackTrace(); // for debugging
+            // e.printStackTrace(); // For debugging purposes
         }
 
         scanner.close();
