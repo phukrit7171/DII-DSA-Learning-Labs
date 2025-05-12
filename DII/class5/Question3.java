@@ -7,7 +7,6 @@ public class Question3 {
 
     public static long[] sumOfEachRow(int[][] matrix) {
         if (matrix == null || matrix.length == 0) {
-            // System.out.println("Matrix is null or empty for sumOfEachRow.");
             return null;
         }
         long[] rowSums = new long[matrix.length];
@@ -17,7 +16,7 @@ public class Question3 {
                 continue;
             }
             long sum = 0;
-            for (int j = 0; j < matrix[i].length; j++) { // Assumes matrix[i] is not null
+            for (int j = 0; j < matrix[i].length; j++) {
                 sum += matrix[i][j];
             }
             rowSums[i] = sum;
@@ -28,12 +27,11 @@ public class Question3 {
     public static void main(String[] args) {
         Random random = new Random();
 
-        System.out.println("--- Question 3: Sum of Each Row in a Square Matrix (Auto-sizing) ---");
+        System.out.println("--- Question 3: Sum of Each Row in a Square Matrix (Increased Sizes) ---");
         
         // For O(N^2) - square matrix of dimension N x N
-        // N*N elements. N=4000 -> 16,000,000 elements. Summation is N*N operations.
-        int[] matrixDimensions = {10, 100, 500, 1000, 2000, 3000, 4000}; 
-        // 4000x4000 might take a few seconds. 3000x3000 is ~9M operations for sum.
+        // N=10000 -> 100,000,000 operations. Matrix size: ~381 MB RAM.
+        int[] matrixDimensions = {1000, 2000, 4000, 6000, 8000, 10000}; 
 
         System.out.println("\nTable for Question 3 (N x N matrix):");
         System.out.println("+------------------+----------------------+");
@@ -41,6 +39,7 @@ public class Question3 {
         System.out.println("+------------------+----------------------+");
 
         for (int n : matrixDimensions) {
+            System.out.printf("Processing Q3 for matrix dimension N = %,d ... ", n);
             // Matrix Initialization (N x N)
             int[][] matrix = new int[n][n];
             for (int i = 0; i < n; i++) {
@@ -54,12 +53,15 @@ public class Question3 {
             long endTime = System.currentTimeMillis();
             long duration = endTime - startTime;
             
-            // To avoid issues with unused `sums` being optimized away
-            // if(sums != null && sums.length > 0 && sums[0] == System.currentTimeMillis()) {}
+            // Hint to prevent sums from being optimized away
+            if (sums != null && sums.length > 0 && sums[0] == System.nanoTime()) System.out.println("This won't happen");
 
-            System.out.printf("| %-16d | %-20d |\n", n, duration);
+            System.out.printf("Completed. Time: %d ms\n", duration);
+            System.out.printf("| %-16s | %-20d |\n", String.format("%,d", n), duration);
         }
         System.out.println("+------------------+----------------------+");
+        System.out.println("If you encounter OutOfMemoryError, try running with more heap: java -Xmx2g Question3 (or higher)");
+
 
         System.out.println("\n--- Big O Analysis for Question 3 ---");
         System.out.println("The Big O of sumOfEachRow for an N x N square matrix is O(N^2) (Quadratic Time).");

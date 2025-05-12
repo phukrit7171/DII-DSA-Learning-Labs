@@ -6,7 +6,6 @@ public class Question2 {
 
     public static long sumOfArray(int[] arr) {
         if (arr == null || arr.length == 0) {
-            // System.out.println("Array is null or empty for sumOfArray.");
             return 0;
         }
         long sum = 0;
@@ -19,13 +18,11 @@ public class Question2 {
     public static void main(String[] args) {
         Random random = new Random();
 
-        System.out.println("--- Question 2: Sum of Array (Auto-sizing) ---");
+        System.out.println("--- Question 2: Sum of Array (Increased Sizes) ---");
         
-        // Similar sizes to Q1, as it's O(N)
-        int[] arraySizes = {10, 1000, 100000, 1000000, 5000000, 10000000, 20000000}; 
-        // Max 20M to keep execution times reasonable for O(N) sum. 
-        // 20,000,000 ints is ~80MB.
-        // Values in array are kept small (1-100) to avoid long overflow with large sums.
+        // Increased array sizes for O(N)
+        // Max 150M ints: ~572 MB RAM. The PDF mentioned 100M.
+        int[] arraySizes = {1_000_000, 10_000_000, 50_000_000, 100_000_000, 150_000_000}; 
 
         System.out.println("\nTable for Question 2:");
         System.out.println("+------------------+----------------------+");
@@ -33,26 +30,25 @@ public class Question2 {
         System.out.println("+------------------+----------------------+");
 
         for (int size : arraySizes) {
-            // Array Initialization (time not included in method's measurement)
+            System.out.printf("Processing Q2 for array size: %,d ... ", size);
+            // Array Initialization
             int[] arr = random.ints(size, 1, 101).toArray(); // Values from 1 to 100
-
-            // Optional warm-up (more beneficial for the first run or more complex JIT optimizations)
-            // if (size == arraySizes[0]) { // Warm-up before the first timed run for this question
-            //     int[] warmUpArr = random.ints(size, 1, 101).toArray();
-            //     sumOfArray(warmUpArr);
-            // }
 
             long startTime = System.currentTimeMillis();
             long sumResult = sumOfArray(arr);
             long endTime = System.currentTimeMillis();
             long duration = endTime - startTime;
             
-            // To avoid issues with unused `sumResult` being optimized away in some scenarios
-            // System.out.print(""); // or use if(sumResult == System.currentTimeMillis()) {}
+            // Hint to prevent sumResult from being optimized away if it's unused.
+            if (sumResult == System.nanoTime()) System.out.println("This will not happen");
 
-            System.out.printf("| %-16d | %-20d |\n", size, duration);
+
+            System.out.printf("Completed. Time: %d ms\n", duration);
+            System.out.printf("| %-16s | %-20d |\n", String.format("%,d", size), duration);
         }
         System.out.println("+------------------+----------------------+");
+        System.out.println("If you encounter OutOfMemoryError, try running with more heap: java -Xmx2g Question2 (or higher like 4g)");
+
 
         System.out.println("\n--- Big O Analysis for Question 2 ---");
         System.out.println("The Big O of sumOfArray is O(N) (Linear Time).");
