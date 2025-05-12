@@ -9,7 +9,7 @@ public class Q2 {
 
         for (int n : x) {
             long startTime = System.currentTimeMillis();
-            summation(x);
+            summation(n);
             // Measure the end time
             long endTime = System.currentTimeMillis();
             long duration = endTime - startTime; // Calculate the duration in milliseconds
