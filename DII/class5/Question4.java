@@ -1,7 +1,6 @@
 package class5;
 
 import java.util.Random;
-import java.util.Arrays;
 
 public class Question4 {
 
