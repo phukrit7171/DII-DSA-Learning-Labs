@@ -1,15 +1,14 @@
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
-import java.util.Collections;
 
 public class node<T> {
     private T value;
-    private node parent;
-    private List<node> List_child;
+    private final node parent;
+    private final List<node> List_child;
     
     public node(node parent, T value) {
-        this.List_child = new LinkedList<node>();
+        this.List_child = new LinkedList<>();
         this.parent = parent;
         this.value = value;
     }
@@ -39,15 +38,12 @@ public class node<T> {
     }
     
     public boolean has_child() {
-        if (this.List_child.size() > 0) {
-            return true;
-        }
-        return false;
+        return !this.List_child.isEmpty();
     }
     
     // Question 1.3: Check if node is leaf
     public boolean is_leaf_node() {
-        return this.List_child.size() == 0;
+        return this.List_child.isEmpty();
     }
     
     // Question 1.6: Get back track from node to root

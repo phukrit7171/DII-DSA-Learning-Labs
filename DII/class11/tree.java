@@ -42,19 +42,26 @@ public class tree<T> {
     // Question 1.4: Print tree v2 - don't show leaf nodes as parents
     public void print_tree_v2(node node) {
         if (node == null) return;
-        
+
         if (node.has_child()) {
+            System.out.print("p:" + node.get_value() + " c: {");
+            int count = 0;
             for (Object child : node.get_child()) {
-                node childNode = (node) child;
-                // Only print if the child is not a leaf node
-                if (!childNode.is_leaf_node()) {
-                    System.out.println("p" + node.get_value() + " c" + childNode.get_value());
-                }
+            node childNode = (node) child;
+            System.out.print(childNode.get_value());
+            if (count < node.get_child().size() - 1) {
+                System.out.print(", ");
             }
-            
-            // Recursively print children
+            count++;
+            }
+            System.out.println(", }");
+
+            // Recursively print children, but only for non-leaf nodes
             for (Object child : node.get_child()) {
-                print_tree_v2((node) child);
+            node childNode = (node) child;
+            if (!childNode.is_leaf_node()) {
+                print_tree_v2(childNode);
+            }
             }
         }
     }
