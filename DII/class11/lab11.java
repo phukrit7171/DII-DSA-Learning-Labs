@@ -46,11 +46,13 @@ public class lab11 {
         
         // Test print_tree_v2
         System.out.println("\nTree v2 (no leaf parents):");
+        System.out.println("root: " + root.get_value());
         tree1.print_tree_v2(root);
         
         // Test DFS and BFS
         ((node) tree1.get_root().get_child().get(2)).set_value(5);
         System.out.println("\nAfter changing node 4 to 5:");
+        System.out.println("root: " + root.get_value());
         tree1.print_tree_v2(root);
         
         // Test DFS
