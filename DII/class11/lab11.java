@@ -47,18 +47,18 @@ public class lab11 {
         System.out.println("\nTree v2 (no leaf parents):");
         tree1.print_tree_v2(root);
         
-        // Test DFS and BFS
+        // Test DFS and BFS (Depth-First Search and Breadth-First Search)
         ((node) tree1.get_root().get_child().get(2)).set_value(5);
         System.out.println("\nAfter changing node 4 to 5:");
         tree1.print_tree_v2(root);
         
-        // Test DFS
+        // Test DFS (Depth-First Search)
         System.out.println("\nDFS test:");
         node node1 = tree1.dfs(root, 5);
         System.out.println("Found value: " + node1.get_value()); // 5
         System.out.println("Parent value: " + node1.get_parent().get_value()); // 2
         
-        // Test BFS
+        // Test BFS (Breadth-First Search)
         System.out.println("\nBFS test:");
         node node2 = tree1.bfs(root, 5);
         System.out.println("Found value: " + node2.get_value()); // 5
