@@ -17,24 +17,25 @@ public class tree<T> {
     public void print_tree(node node) {
         if (node == null) return;
         
-        // Print current node and all its children on one line
-        System.out.print("p:" + node.get_value() + " c: {");
-        if (node.has_child()) {
-            for (int i = 0; i < node.get_child().size(); i++) {
-                node childNode = (node) node.get_child().get(i);
-                System.out.print(childNode.get_value());
-                if (i < node.get_child().size() - 1) {
-                    System.out.print(", ");
+        Queue<node> queue = new LinkedList<>();
+        queue.offer(node);
+        
+        while (!queue.isEmpty()) {
+            node current = queue.poll();
+            
+            // Print current node and all its children on one line
+            System.out.print("p:" + current.get_value() + " c: {");
+            if (current.has_child()) {
+                for (int i = 0; i < current.get_child().size(); i++) {
+                    node childNode = (node) current.get_child().get(i);
+                    System.out.print(childNode.get_value());
+                    if (i < current.get_child().size() - 1) {
+                        System.out.print(", ");
+                    }
+                    queue.offer(childNode);
                 }
             }
-        }
-        System.out.println(", }");
-        
-        // Recursively print children
-        if (node.has_child()) {
-            for (Object child : node.get_child()) {
-                print_tree((node) child);
-            }
+            System.out.println(", }");
         }
     }
     
