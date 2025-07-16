@@ -1,68 +1,73 @@
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Collections;
 
 public class node<T> {
     private T value;
-    private final node parent;
-    private final List<node> List_child;
-    
-    public node(node parent, T value) {
-        this.List_child = new LinkedList<>();
+    private node<T> parent;
+    private List<node<T>> list_child;
+
+    public node(node<T> parent, T value) {
         this.parent = parent;
         this.value = value;
+        this.list_child = new LinkedList<node<T>>();
     }
-    
+
     public T get_value() {
         return this.value;
     }
-    
+
     public void set_value(T value) {
         this.value = value;
     }
-    
-    public node get_parent() {
+
+    public node<T> get_parent() {
         return this.parent;
     }
-    
-    public void add_child(node node) {
-        this.List_child.add(node);
+
+    public void add_child(node<T> node) {
+        this.list_child.add(node);
     }
-    
-    public void remove_child(node node) {
-        this.List_child.remove(node);
-    }
-    
-    public List<node> get_child() {
-        return this.List_child;
+
+    public List<node<T>> get_child() {
+        return this.list_child;
     }
     
     public boolean has_child() {
-        return !this.List_child.isEmpty();
+        return !this.list_child.isEmpty();
     }
-    
-    // Question 1.3: Check if node is leaf
+
+    /**
+     * Q1.3: ตรวจสอบว่าโหนดปัจจุบันเป็นโหนดใบ (ไม่มีลูก) หรือไม่
+     * @return true ถ้าเป็นโหนดใบ, false ถ้าไม่ใช่
+     */
     public boolean is_leaf_node() {
-        return this.List_child.isEmpty();
+        return !this.has_child();
     }
-    
-    // Question 1.6: Get back track from node to root
-    public List<node> get_back_track(node node1) {
-        List<node> path = new LinkedList<>();
-        node current = node1;
-        
+
+    /**
+     * Q1.6: คืนค่า List ของโหนดจากโหนดที่ระบุกลับไปยังโหนดราก
+     * @param node1 โหนดเริ่มต้น
+     * @return List ของโหนดในเส้นทางกลับไปยังราก
+     */
+    public List<node<T>> get_back_track(node<T> node1) {
+        List<node<T>> result_nodes = new LinkedList<>();
+        node<T> current = node1;
         while (current != null) {
-            path.add(current);
+            result_nodes.add(current);
             current = current.get_parent();
         }
-        
-        return path;
+        return result_nodes;
     }
-    
-    // Question 1.7: Get reverse back track (root to node)
-    public List<node> get_reverse_back_track(node node1) {
-        List<node> path = get_back_track(node1);
-        Collections.reverse(path);
-        return path;
+
+    /**
+     * Q1.7: คืนค่า List ของโหนดจากโหนดรากมายังโหนดใบ (ย้อนกลับ List จาก get_back_track)
+     * @param leaf_node โหนดใบ
+     * @return List ของโหนดในเส้นทางจากรากมายังใบ
+     */
+    public List<node<T>> get_reverse_back_track(node<T> leaf_node) {
+        List<node<T>> back_track_path = get_back_track(leaf_node);
+        Collections.reverse(back_track_path);
+        return back_track_path;
     }
 }
